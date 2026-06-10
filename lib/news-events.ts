@@ -21,8 +21,8 @@ const newsEventPosts: NewsEventPost[] = [
     summary:
       "Metro Rosario Medical Specialists Center, Inc. appears in the latest PhilHealth hospital list as a private Level 1 general hospital with 25 beds.",
     image:
-      "https://images.unsplash.com/photo-1583912267550-d44c9c34c40d?auto=format&fit=crop&w=1200&q=80",
-    imageAlt: "Hospital corridor with clinical staff station",
+      "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "Hospital building exterior and entrance",
     body: [
       `${hospital.legalName} is listed as a private Level 1 general hospital serving Rosario, Batangas.`,
       "For patients, this means the center is positioned for essential hospital access, outpatient coordination, diagnostics, and core clinical services appropriate to a Level 1 facility.",
