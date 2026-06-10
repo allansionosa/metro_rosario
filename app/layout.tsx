@@ -1,15 +1,11 @@
-import { Geist, Geist_Mono, Inter } from "next/font/google"
-
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
-import { cn } from "@/lib/utils";
+import { hospital } from "@/lib/site-data"
 
-const inter = Inter({subsets:['latin'],variable:'--font-sans'})
-
-const fontMono = Geist_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-})
+export const metadata = {
+  title: `${hospital.name} | Rosario, Batangas`,
+  description: `${hospital.legalName} is a private Level 1 general hospital on J. Magtibay St., Rosario, Batangas.`,
+}
 
 export default function RootLayout({
   children,
@@ -17,11 +13,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={cn("antialiased", fontMono.variable, "font-sans", inter.variable)}
-    >
+    <html lang="en" suppressHydrationWarning className="font-sans antialiased">
       <body>
         <ThemeProvider>{children}</ThemeProvider>
       </body>
