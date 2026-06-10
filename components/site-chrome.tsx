@@ -4,6 +4,7 @@ import Link from "next/link"
 
 import { DesktopNavigation } from "@/components/desktop-navigation"
 import { MobileNavigation } from "@/components/mobile-navigation"
+import { ScrollAwareHeader } from "@/components/scroll-aware-header"
 import { contactLines, hospital } from "@/lib/site-data"
 import { onlineResultPortals } from "@/lib/online-results"
 import {
@@ -125,7 +126,7 @@ function Logo({ inverted = false }: { inverted?: boolean }) {
 
 function SiteHeader() {
   return (
-    <header>
+    <>
       <div className="bg-blue-600 text-white">
         <div className="mx-auto max-w-7xl px-5 py-3 text-xs font-semibold">
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:items-center lg:gap-8">
@@ -162,14 +163,16 @@ function SiteHeader() {
         </div>
       </div>
 
-      <nav className="bg-white shadow-[0_1px_0_rgba(15,23,42,0.08)]">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 sm:gap-6 sm:py-5">
-          <Logo />
-          <DesktopNavigation items={navItems} />
-          <MobileNavigation items={navItems} />
-        </div>
-      </nav>
-    </header>
+      <ScrollAwareHeader>
+        <nav className="shadow-[0_1px_0_rgba(15,23,42,0.08)]">
+          <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 sm:gap-6 sm:py-5">
+            <Logo />
+            <DesktopNavigation items={navItems} />
+            <MobileNavigation items={navItems} />
+          </div>
+        </nav>
+      </ScrollAwareHeader>
+    </>
   )
 }
 

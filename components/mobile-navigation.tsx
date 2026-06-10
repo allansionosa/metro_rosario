@@ -2,6 +2,7 @@
 
 import { Menu } from "lucide-react"
 import Link from "next/link"
+import * as React from "react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -21,10 +22,43 @@ type MobileNavigationItem = {
 }
 
 function MobileNavigation({ items }: { items: MobileNavigationItem[] }) {
+  const triggerRef = React.useRef<HTMLButtonElement>(null)
+  const scrollPositionRef = React.useRef(0)
+  const isNavigatingRef = React.useRef(false)
+  const [open, setOpen] = React.useState(false)
+
+  function handleOpenChange(nextOpen: boolean) {
+    if (nextOpen) {
+      isNavigatingRef.current = false
+      scrollPositionRef.current = window.scrollY
+      setOpen(true)
+      return
+    }
+
+    setOpen(false)
+
+    if (isNavigatingRef.current) {
+      return
+    }
+
+    requestAnimationFrame(() => {
+      window.scrollTo(0, scrollPositionRef.current)
+    })
+  }
+
+  function handleCloseAutoFocus(event: Event) {
+    event.preventDefault()
+
+    requestAnimationFrame(() => {
+      triggerRef.current?.focus({ preventScroll: true })
+    })
+  }
+
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={handleOpenChange}>
       <SheetTrigger asChild>
         <Button
+          ref={triggerRef}
           type="button"
           variant="outline"
           size="icon-lg"
@@ -34,7 +68,11 @@ function MobileNavigation({ items }: { items: MobileNavigationItem[] }) {
           <Menu className="size-5" />
         </Button>
       </SheetTrigger>
-      <SheetContent side="right" className="w-[min(88vw,360px)] bg-white p-0">
+      <SheetContent
+        side="right"
+        className="mobile-navigation-sheet w-[min(88vw,360px)] bg-white p-0"
+        onCloseAutoFocus={handleCloseAutoFocus}
+      >
         <SheetHeader className="border-b border-slate-100 p-5">
           <SheetTitle className="text-lg font-extrabold text-slate-800">
             COMLOGIK MEDICAL
@@ -47,7 +85,7 @@ function MobileNavigation({ items }: { items: MobileNavigationItem[] }) {
           {items.map((item) =>
             item.children ? (
               <div key={item.href} className="py-1">
-                <div className="px-3 pb-2 pt-3 text-xs font-extrabold tracking-wide text-slate-400 uppercase">
+                <div className="px-3 pt-3 pb-2 text-xs font-extrabold tracking-wide text-slate-400 uppercase">
                   {item.label}
                 </div>
                 <div className="grid gap-1">
@@ -55,7 +93,10 @@ function MobileNavigation({ items }: { items: MobileNavigationItem[] }) {
                     <SheetClose key={child.href} asChild>
                       <Link
                         href={child.href}
-                        className="rounded-sm px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-blue-50 hover:text-blue-600 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-blue-500/30"
+                        className="rounded-sm px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-blue-50 hover:text-blue-600 focus-visible:ring-3 focus-visible:ring-blue-500/30 focus-visible:outline-none"
+                        onClick={() => {
+                          isNavigatingRef.current = true
+                        }}
                       >
                         {child.label}
                       </Link>
@@ -67,7 +108,10 @@ function MobileNavigation({ items }: { items: MobileNavigationItem[] }) {
               <SheetClose key={item.href} asChild>
                 <Link
                   href={item.href}
-                  className="rounded-sm px-3 py-3 text-sm font-semibold text-slate-700 transition hover:bg-blue-50 hover:text-blue-600 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-blue-500/30"
+                  className="rounded-sm px-3 py-3 text-sm font-semibold text-slate-700 transition hover:bg-blue-50 hover:text-blue-600 focus-visible:ring-3 focus-visible:ring-blue-500/30 focus-visible:outline-none"
+                  onClick={() => {
+                    isNavigatingRef.current = true
+                  }}
                 >
                   {item.label}
                 </Link>
