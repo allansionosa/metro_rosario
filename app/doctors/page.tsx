@@ -31,14 +31,6 @@ export default function DoctorsPage() {
               <p className="text-sm font-semibold tracking-wide text-blue-600 uppercase">
                 Doctor Directory
               </p>
-              <h2 className="mt-4 text-4xl font-extrabold text-neutral-700">
-                A finished doctor directory preview.
-              </h2>
-              <p className="mt-4 text-sm leading-7 text-slate-500">
-                This preview uses mock doctor profiles where verified roster
-                data is not yet available. Replace the mock entries in the
-                shared doctors data when the official roster is ready.
-              </p>
             </div>
 
             <Card className="rounded-sm border-0 bg-blue-600 p-7 text-white ring-0">
@@ -89,33 +81,6 @@ export default function DoctorsPage() {
           </Card>
 
           <DoctorsDirectory doctors={doctorProfiles} />
-
-          <Card className="mt-12 rounded-sm border-0 bg-white p-7 ring-0">
-            <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
-              <div className="flex items-start gap-4">
-                <div className="grid size-12 shrink-0 place-items-center rounded-sm bg-blue-100 text-blue-600">
-                  <UserRoundCheck className="size-6" />
-                </div>
-                <div>
-                  <CardTitle className="text-xl font-extrabold text-neutral-700">
-                    Have an updated doctor roster?
-                  </CardTitle>
-                  <p className="mt-2 text-sm leading-6 text-slate-500">
-                    The page is structured so verified doctor names, photos,
-                    schedules, and specialties can be added without changing the
-                    layout.
-                  </p>
-                </div>
-              </div>
-              <Button
-                asChild
-                size="lg"
-                className="h-10 rounded bg-blue-600 px-5 text-xs font-bold text-white hover:bg-blue-700"
-              >
-                <Link href="/contact">Send roster update</Link>
-              </Button>
-            </div>
-          </Card>
         </div>
       </section>
 
